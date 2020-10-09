@@ -17,7 +17,7 @@ Features
 -  SSH public-key authentication supported, including DSA RSA ECDSA
    Ed25519 keys.
 -  Encrypted keys supported.
--  Two-Factor Authentication(time-based one-time password) supported.
+-  Two-Factor Authentication (time-based one-time password) supported.
 -  Fullscreen terminal supported.
 -  Terminal window resizable.
 -  Auto detect the ssh server's default encoding.
@@ -109,20 +109,8 @@ Browser console
 Custom Font
 ~~~~~~~~~~~
 
-Custom font family usage example:
-
-.. code:: html
-
-    <style>
-      @font-face {
-        font-family: 'font-name';
-        src: url('static/css/fonts/your-favorite-font');
-      }
-
-      body {
-        font-family: 'font-name';
-      }
-    </style>
+To use custom font, put your font file in the directory
+``webssh/static/css/fonts/`` and restart the server.
 
 URL Arguments
 ~~~~~~~~~~~~~

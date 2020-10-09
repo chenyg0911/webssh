@@ -24,6 +24,16 @@
       .btn-danger {
         margin-left: 5px;
       }
+      {% if font.family %}
+      @font-face {
+        font-family: '{{ font.family }}';
+        src: url('{{ font.url }}');
+      }
+
+      body {
+        font-family: '{{ font.family }}';
+      }
+      {% end %}
     </style>
   </head>
   <body>
@@ -85,7 +95,7 @@
     <script src="static/js/popper.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
     <script src="static/js/xterm.min.js"></script>
-    <script src="static/js/fullscreen.min.js"></script>
+    <script src="static/js/xterm-addon-fit.min.js"></script>
     <script src="static/js/main.js"></script>
   </body>
 </html>
