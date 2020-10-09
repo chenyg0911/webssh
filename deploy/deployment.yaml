@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webssh
+spec:
+  selector:
+    matchLabels:
+      app: webssh
+  template:
+    metadata:
+      labels:
+        app: webssh
+    spec:
+      containers:
+      - name: webssh
+        image: registry.mooplab.com:8443/tools/webssh:d5d6544
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8888
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webssh
+spec:
+  selector:
+    app: webssh
+  ports:
+  - port: 80
+    targetPort: 8888
+  type: ClusterIP
+
+---
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-connect-timeout: "1800"
+      nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "1800"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+    name: webssh
+  spec:
+    rules:
+    - host: wssh.mooplab.com
+      http:
+        paths:
+        - backend:
+            serviceName: webssh
+            servicePort: 80
+          path: /
+    tls:
+    - hosts:
+      - wssh.mooplab.com
+      secretName: secret-ingress-tls
